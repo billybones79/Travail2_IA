@@ -28,3 +28,13 @@ C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail 2 - Echec
 C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail 2 - Echec\processAI1\processAI1\obj\Debug\processAI1.csproj.CoreCompileInputs.cache
 C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail 2 - Echec\processAI1\processAI1\obj\Debug\processAI1.exe
 C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail 2 - Echec\processAI1\processAI1\obj\Debug\processAI1.pdb
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\processAI1.exe.config
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\processAI1.exe
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\processAI1.pdb
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\jeu_echec_stage.exe
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\jeu_echec_stage.pdb
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\bin\Debug\jeu_echec_stage.exe.config
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\obj\Debug\processAI1.csprojResolveAssemblyReference.cache
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\obj\Debug\processAI1.csproj.CoreCompileInputs.cache
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\obj\Debug\processAI1.exe
+C:\Users\Julien\Documents\Cours UQAC\intelligence artificielle\Travail2_IA\processAI1\processAI1\obj\Debug\processAI1.pdb

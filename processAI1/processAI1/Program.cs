@@ -14,7 +14,7 @@ namespace processAI1
         {
             try
             {
-
+                
                 bool stop = false;
                 int[] tabVal = new int[64];
                 String value;
@@ -65,9 +65,10 @@ namespace processAI1
 
 
                                 Echiquier echiquier = Echiquier.Instance();
-                                List<int> listecasesDispo = new List<int>(); // Liste des cases où je peux aller.
-                                List<int> listecasesEnnemies = new List<int>(); // Liste des cases ennemies.
-
+                                
+                                
+                                int trait = echiquier.getTrait();
+                                int[] mouvementPion = new int[] { -11, -9 }; // Vecteurs de mouvement du pion.
 
                                 // Création de la liste des pièces adverse que l'on peut manger
                                 List<CasesAdversesManger> listeCasesAManger = new List<CasesAdversesManger>();
@@ -76,13 +77,13 @@ namespace processAI1
                                 List<String> mesPieces = new List<String>();
                                 List<Pieces> piecesAlli = new List<Pieces>(); // Creation de la liste de nos pièces.
                                 List<Pieces> piecesEnnemies = new List<Pieces>(); // Creation de la liste des pièces ennemies.
-
+                                
                                 for (int i = 0; i < tabVal.Length; i++)
                                 {
                                     if (tabVal[i] > 0) // Si ce sont des alliés
                                     {
                                         int position = PosForCoord(tabCoord[i]); // On récupère la position.
-                                        mesPieces.Add(tabCoord[i]);
+                                        // mesPieces.Add(tabCoord[i]); Si on veut les coordonnées de nos pièces, on peut rajouter cette ligne.
                                         Pieces piece = new Pieces(tabCoord[i], tabVal[i], position);
                                         piecesAlli.Add(piece); // On ajoute à la liste de pieces alliées.
                                     }
@@ -101,61 +102,61 @@ namespace processAI1
                                     }
                                 }
 
-                                // Maintenant on remplit la liste des cases contenant des pièces que l'on peut manger et celles où l'on peut aller sans rencontrer d'obstacle.
-                            
-                              foreach(Pieces piece in piecesAlli)
+                                /* Maintenant on remplit la liste des cases contenant des pièces que l'on peut manger 
+                                et celles où l'on peut aller sans rencontrer d'obstacle. */
+
+                                foreach (Pieces piece in piecesAlli)
                                 {
-                                    int[] tabPos = new int[] {  21, 22, 23, 24, 25, 26, 27, 28,
-                                  31, 32, 33, 34, 35, 36, 37, 38,
-                                  41, 42, 43, 44, 45, 46, 47, 48,
-                                  51, 52, 53, 54, 55, 56, 57, 58,
-                                  61, 62, 63, 64, 65, 66, 67, 68,
-                                  71, 72, 73, 74, 75, 76, 77, 78,
-                                  81, 82, 83, 84, 85, 86, 87, 88,
-                                  91, 92, 93, 94, 95, 96, 97, 98 };       // On cree le tableau avec l'ensemble des positions.
-
-                                    for(int i =0; i<tabPos.Length; i++)
-                                    {
-                                        if( echiquier.valide(piece.Position, tabPos[i])) // Si l'action est possible, c'est à dire que l'on ne sort pas du terrain que l'on ne rencontre pas non plus de piece.
+                                    /* Quelque soit la pièce, si le coup est valide sur une piece ennemie, alors on peut la manger          */ 
+                                        foreach (Pieces pieceEnnemies in piecesEnnemies)
                                         {
-                                            listecasesDispo.Add(tabPos[i]);
-                                            
-                                        }
-
-                                        else
-                                        {
-                                            //////////////////////////////////////////////////// Fonction permettant de savoir si l'on sort du terrain où si c'est un ennemi.///////////////////////////////////////////::
-                                            // Solution, essayer de savoir si on sort du terrain.
-
-                                        if(inTheTerrain(tabPos[i]) == true) // Si la case est dans le terrain.
+                                            if (echiquier.valide(piece.Position, pieceEnnemies.Position))
                                             {
-                                                if (piece.Valeurs != 1 && piece.Valeurs != -1) // Si notre piece n'est pas un pion et peut donc manger les ennemies qui sont en travers de son chemin.
-                                                {
-                                                    listecasesEnnemies.Add(tabPos[i]); // Alors c'est une case ennemie que l'on peut manger .
-                                                    CasesAdversesManger caseEnnemie = new CasesAdversesManger(piece.Position, tabPos[i]);
-                                                    listeCasesAManger.Add(caseEnnemie); // On ajoute ces un caseAdversesManger contenant la position de la piece pouvant manger et la position de la pièce ennemie qui va être mangé.
-                                                }
-
-
+                                            CasesAdversesManger newPiece = new CasesAdversesManger(piece.Position, pieceEnnemies.Position);
+                                            listeCasesAManger.Add(newPiece);
                                             }
+                                    }
 
+                                        if(isPion(piece)) // Mais si la pièce est un pion on peut aussi prendre les cases en passant. C'est donc des cases où il n'y a pas d'ennemie dessus.
+                                    {
+
+                                        for (int i = 0; i < mouvementPion.Length; i++)
+                                        {
+                                            int positionCaseEvalué = piece.Position + mouvementPion[i] * trait; // Pour Chaque endroit ou le pion peut aller en diagonale.
+                                            if(echiquier.valide(piece.Position,positionCaseEvalué))
+                                            {
+                                                CasesAdversesManger newCase = new CasesAdversesManger(piece.Position, positionCaseEvalué);
+                                                listeCasesAManger.Add(newCase);
+                                            }
                                         }
                                     }
 
 
+                                        
 
+                                        
+
+                             
                                 }
+                        
+                         
+
+
+
 
                              
                                 
-
+                                /////////////////////////////////////////// Notre joueur joue en Random /////////////////////////////////////////////////
                                 Random rnd = new Random();
                                 coord[0] = mesPieces[rnd.Next(mesPieces.Count)];
                                 //coord[0] = "b7";
                                 //coord[1] = "b8";
                                 coord[1] = tabCoord[rnd.Next(reste.Count)];
                                 //coord[2] = "P";
-
+                                foreach(CasesAdversesManger newCase in listeCasesAManger)
+                                {
+                                    Console.WriteLine(newCase.ToString());
+                                }
 
                                 /********************************************************************************************************/
                                 /********************************************************************************************************/
@@ -178,6 +179,8 @@ namespace processAI1
                         }
                     }
                 }
+
+                
             }
             catch (FileNotFoundException)
             {
@@ -260,9 +263,24 @@ namespace processAI1
             return retour; 
         }
 
-      
+      private static Boolean isPion (Pieces piece)
+
+        {
+            if(piece.Valeurs != 1 && piece.Valeurs != -1)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+
+
+        private void listeEnnemieAManger()
+        {
+
+        }
 
     }
+
 
  
 }

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="jeu_echec_stage">
-      <HintPath>..\..\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
+      <HintPath>..\..\..\Travail 2 - Echec\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
