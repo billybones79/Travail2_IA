@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jeu_echec_stage">
-      <HintPath>..\..\..\Travail 2 - Echec\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
+    <Reference Include="jeu_echec_stage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

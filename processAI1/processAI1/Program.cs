@@ -6,6 +6,7 @@ using System.IO.MemoryMappedFiles;
 using System.Threading;
 using jeu_echec_stage;
 
+
 namespace processAI1
 {
     class Program
@@ -30,6 +31,7 @@ namespace processAI1
 
                 while (!stop)
                 {
+
                     using (var mmf = MemoryMappedFile.OpenExisting("plateau"))
                     {
                         using (var mmf2 = MemoryMappedFile.OpenExisting("repAI1"))
@@ -107,10 +109,16 @@ namespace processAI1
 
                                 foreach (Pieces piece in piecesAlli)
                                 {
+                                    Console.WriteLine(piece.Position);
+                                }
+                                foreach (Pieces piece in piecesAlli)
+                                {
                                     /* Quelque soit la pièce, si le coup est valide sur une piece ennemie, alors on peut la manger          */ 
                                         foreach (Pieces pieceEnnemies in piecesEnnemies)
                                         {
-                                            if (echiquier.valide(piece.Position, pieceEnnemies.Position))
+                                        Console.WriteLine("La position de la pièce est "  + piece.Position + "et ca valeur est" + piece.Valeurs);
+
+                                            if (echiquier.valide(giveIndexForPosition(piece.Position), giveIndexForPosition(pieceEnnemies.Position)))
                                             {
                                             CasesAdversesManger newPiece = new CasesAdversesManger(piece.Position, pieceEnnemies.Position);
                                             listeCasesAManger.Add(newPiece);
@@ -123,10 +131,16 @@ namespace processAI1
                                         for (int i = 0; i < mouvementPion.Length; i++)
                                         {
                                             int positionCaseEvalué = piece.Position + mouvementPion[i] * trait; // Pour Chaque endroit ou le pion peut aller en diagonale.
-                                            if(echiquier.valide(piece.Position,positionCaseEvalué))
+                                            if (inTheTerrain(positionCaseEvalué))
                                             {
-                                                CasesAdversesManger newCase = new CasesAdversesManger(piece.Position, positionCaseEvalué);
-                                                listeCasesAManger.Add(newCase);
+                                                Console.WriteLine("la position de la case évaluée est " + positionCaseEvalué + " et son index est " + giveIndexForPosition(positionCaseEvalué));
+
+                                                if (echiquier.valide(giveIndexForPosition(piece.Position), giveIndexForPosition(positionCaseEvalué)))
+                                                {
+                                                    CasesAdversesManger newCase = new CasesAdversesManger(piece.Position, positionCaseEvalué);
+                                                    listeCasesAManger.Add(newCase);
+                                                }
+
                                             }
                                         }
                                     }
@@ -147,11 +161,11 @@ namespace processAI1
                              
                                 
                                 /////////////////////////////////////////// Notre joueur joue en Random /////////////////////////////////////////////////
-                                Random rnd = new Random();
-                                coord[0] = mesPieces[rnd.Next(mesPieces.Count)];
+                                //Random rnd = new Random();
+                                //coord[0] = mesPieces[rnd.Next(mesPieces.Count)];
                                 //coord[0] = "b7";
                                 //coord[1] = "b8";
-                                coord[1] = tabCoord[rnd.Next(reste.Count)];
+                                //coord[1] = tabCoord[rnd.Next(reste.Count)];
                                 //coord[2] = "P";
                                 foreach(CasesAdversesManger newCase in listeCasesAManger)
                                 {
@@ -274,12 +288,34 @@ namespace processAI1
         }
 
 
-        private void listeEnnemieAManger()
+        private static int giveIndexForPosition(int position)
         {
+            int index = -1100;
 
+            //Tableau permettant de calculer les déplacements avec les vecteurs de déplacement des pièces
+           int[] tabPos = new int[] {  21, 22, 23, 24, 25, 26, 27, 28,
+                                  31, 32, 33, 34, 35, 36, 37, 38,
+                                  41, 42, 43, 44, 45, 46, 47, 48,
+                                  51, 52, 53, 54, 55, 56, 57, 58,
+                                  61, 62, 63, 64, 65, 66, 67, 68,
+                                  71, 72, 73, 74, 75, 76, 77, 78,
+                                  81, 82, 83, 84, 85, 86, 87, 88,
+                                  91, 92, 93, 94, 95, 96, 97, 98 };
+
+            for (int i =0; i<tabPos.Length; i++)
+            {
+                if(tabPos[i] == position)
+                {
+                    index = i;
+                }
+            }
+
+
+
+            return index;
         }
 
-    }
+}
 
 
  
