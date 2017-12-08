@@ -276,8 +276,68 @@ namespace processAI1
 
             return retour; 
         }
+        // int position, int arrivé, int valeur, string pièce
+        public String CompareMinMax(CoupPossible[] coup)
+        {
+           
 
       private static Boolean isPion (Pieces piece)
+           // Dictionary<string, int> MinValueDictionary = new Dictionary<string, int>();
+            Dictionary<string, CoupPossible> CoupPossibleDictionary = new Dictionary<string, CoupPossible>();
+
+            String[] tabCoord = new string[] {  "a8","b8","c8","d8","e8","f8","g8","h8",
+                                       "a7","b7","c7","d7","e7","f7","g7","h7",
+                                       "a6","b6","c6","d6","e6","f6","g6","h6",
+                                       "a5","b5","c5","d5","e5","f5","g5","h5",
+                                       "a4","b4","c4","d4","e4","f4","g4","h4",
+                                       "a3","b3","c3","d3","e3","f3","g3","h3",
+                                       "a2","b2","c2","d2","e2","f2","g2","h2",
+                                       "a1","b1","c1","d1","e1","f1","g1","h1" };
+
+            //initialisation du dictionary on prend une valeur impossible a atteindre pour ignorer les case "vide"
+            for (int i = 0; i <tabCoord.Length; i++)
+            {
+                CoupPossibleDictionary.Add(tabCoord[i], new CoupPossible("","",1000,""));
+            }
+
+            foreach (CoupPossible valueCoupPossible in coup)
+            {
+                if(valueCoupPossible.Valeur < CoupPossibleDictionary[valueCoupPossible.Position].Valeur) //cherche le min de toutes les propositions
+                {
+                    CoupPossibleDictionary[valueCoupPossible.Position] = valueCoupPossible;
+                }
+            }
+
+            int max = -1000;
+            string pos = "";
+            for (int i = 0; i < tabCoord.Length; i++) //trouve le maximum de toutes les solutions (meme départ) 
+            {
+                if (CoupPossibleDictionary[tabCoord[i]].Valeur != 1000 && CoupPossibleDictionary[tabCoord[i]].Valeur > max)
+                {
+                    max = CoupPossibleDictionary[tabCoord[i]].Valeur;
+                    pos = tabCoord[i]; //pos de départ on veut celle d'arrivé
+                }
+            }
+
+            //retourne une valeur parmis toute celle jouable (toujours le premier min)
+            string arr = CoupPossibleDictionary[pos].Arrive;
+
+
+            /***********recupere toutes les arrivés **************** si on a besoin des coups ennemis
+            List<CoupPossible> ArrList = new List<CoupPossible>();
+            foreach (CoupPossible coupPossible in coup)
+            {
+                if (coupPossible.Position == pos) //cherche le min de toutes les propositions
+                {
+                    ArrList.Add(coupPossible);
+                }
+            }
+        
+            */
+            return arr;
+        }
+
+      
 
         {
             if(piece.Valeurs != 1 && piece.Valeurs != -1)
