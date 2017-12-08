@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="jeu_echec_stage">
-      <HintPath>..\..\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\IA\jeu_echec_stage\jeu_echec_stage\bin\Debug\jeu_echec_stage.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CasesAdversesManger.cs" />
+    <Compile Include="CoupPossible.cs" />
     <Compile Include="Pieces.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
